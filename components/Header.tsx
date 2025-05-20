@@ -8,8 +8,8 @@ import {
   UsersIcon,
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -64,10 +64,10 @@ function Header({ placeholder }: { placeholder?: string }) {
       >
         <Image
           src='/logo.svg'
-          layout='fill'
-          objectFit='contain'
-          objectPosition='left'
           alt='Airbnb Logo'
+          width={100}
+          height={40}
+          className='object-contain object-left'
         />
       </div>
 
