@@ -3,12 +3,11 @@ import Footer from '@/components/Footer';
 import { format } from 'date-fns';
 import { Stay } from '../../../types/stay';
 import InfoCard from '../../../components/InfoCard';
+import Map from '@/components/Map';
 
 export default async function SearchPage() {
   const res = await fetch('https://www.jsonkeeper.com/b/5NPS');
   const searchResults: Stay[] = await res.json();
-
-  <p className='text-red-500'>Found {searchResults.length} stays</p>;
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const queryString = globalThis?.location?.search || '';
@@ -29,12 +28,17 @@ export default async function SearchPage() {
   return (
     <div>
       <Header placeholder={`${location} | ${range} | ${noOfGuests} guest`} />
+
       <main className='flex'>
         <section className='flex-grow pt-14 px-6'>
           <p className='text-xs'>
             {searchResults.length}+ Stays - {range} - for {noOfGuests} guests
           </p>
-          <h1 className='text-3xl font-semibold mt-2 mb-6'>Stays in {location || 'Here'}</h1>
+
+          <h1 className='text-3xl font-semibold mt-2 mb-2'>Stays in {location || 'Here'}</h1>
+
+          <p className='text-red-500 mb-4'>Found {searchResults.length} stays</p>
+
           <div className='hidden lg:inline-flex mb-5 space-x-3 whitespace-nowrap'>
             <p className='button'>Cancellation Flexibility</p>
             <p className='button'>Type of Place</p>
@@ -42,6 +46,7 @@ export default async function SearchPage() {
             <p className='button'>Rooms and Beds</p>
             <p className='button'>More filters</p>
           </div>
+
           {searchResults.map((item) => (
             <InfoCard
               key={item.img}
@@ -55,7 +60,12 @@ export default async function SearchPage() {
             />
           ))}
         </section>
+
+        <section className='hidden xl:inline-flex'>
+          <Map />
+        </section>
       </main>
+
       <Footer />
     </div>
   );

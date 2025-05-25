@@ -1,17 +1,14 @@
-// next.config.ts
-const nextConfig = {
+module.exports = {
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'picsum.photos',
+        hostname: 'links.papareact.com',
       },
       {
         protocol: 'https',
-        hostname: 'links.papareact.com',
+        hostname: 'picsum.photos',
       },
     ],
   },
 };
-
-export default nextConfig;
