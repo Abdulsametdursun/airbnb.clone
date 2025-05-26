@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import ReactMapGL, { Marker, Popup, ViewState } from 'react-map-gl';
 import getCenter from 'geolib/es/getCenter';
@@ -15,7 +17,7 @@ const Map = ({
     lat?: number;
     long?: number;
     title?: string;
-  }>({});
+  } | null>(null);
 
   const coordinates = searchResults.map((result) => ({
     latitude: result.lat,
@@ -39,13 +41,13 @@ const Map = ({
         {...viewport}
         width='100%'
         height='100%'
-        mapStyle='mapbox://styles/sonnysangha/ckqlh2q651b7k19lcymr2z03d'
-        mapboxApiAccessToken={process.env.mapbox_key}
-        onViewportChange={(nextViewport) => setViewport(nextViewport)}
+        mapStyle='mapbox://styles/sananemapbox/cmb2z4x2d00oz01qy5yaobmqh'
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+        onMove={(evt) => setViewport(evt.viewState)}
       >
         {searchResults.map((result) => (
           <div key={result.long}>
-            <Marker latitude={result.lat} longitude={result.long} offsetLeft={-20} offsetTop={-10}>
+            <Marker latitude={result.lat} longitude={result.long} anchor='bottom'>
               <p
                 role='img'
                 aria-label='push-pin'
@@ -56,16 +58,19 @@ const Map = ({
               </p>
             </Marker>
 
-            {selectedLocation.long === result.long && (
-              <Popup
-                onClose={() => setSelectedLocation({})}
-                closeOnClick={true}
-                latitude={result.lat}
-                longitude={result.long}
-              >
-                {result.title}
-              </Popup>
-            )}
+            {selectedLocation &&
+              selectedLocation.long === result.long &&
+              selectedLocation.lat === result.lat && (
+                <Popup
+                  onClose={() => setSelectedLocation(null)}
+                  closeOnClick={true}
+                  latitude={result.lat}
+                  longitude={result.long}
+                  anchor='top'
+                >
+                  {result.title}
+                </Popup>
+              )}
           </div>
         ))}
       </ReactMapGL>

@@ -3,7 +3,7 @@ import Footer from '@/components/Footer';
 import { format } from 'date-fns';
 import { Stay } from '../../../types/stay';
 import InfoCard from '../../../components/InfoCard';
-import Map from '@/components/Map';
+import MapWrapper from '@/components/MapWrapper';
 
 export default async function SearchPage() {
   const res = await fetch('https://www.jsonkeeper.com/b/5NPS');
@@ -62,7 +62,9 @@ export default async function SearchPage() {
         </section>
 
         <section className='hidden xl:inline-flex'>
-          <Map />
+          <section className='hidden xl:inline-flex'>
+            <MapWrapper searchResults={searchResults} />
+          </section>
         </section>
       </main>
 
