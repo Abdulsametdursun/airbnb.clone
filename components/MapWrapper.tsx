@@ -1,13 +1,11 @@
 'use client';
+import Map from './Map';
+import { Stay } from '@/types/stay';
 
-import dynamic from 'next/dynamic';
-
-const DynamicMap = dynamic(() => import('./Map'), {
-  ssr: false,
-});
-
-const MapWrapper = ({ searchResults }: { searchResults: any[] }) => {
-  return <DynamicMap searchResults={searchResults} />;
-};
-
-export default MapWrapper;
+export default function MapWrapper({ searchResults }: { searchResults: Stay[] }) {
+  return (
+    <div className='w-full h-full'>
+      <Map searchResults={searchResults} />
+    </div>
+  );
+}

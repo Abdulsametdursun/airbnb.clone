@@ -61,11 +61,9 @@ export default async function SearchPage() {
           ))}
         </section>
 
-        <section className='hidden xl:inline-flex'>
-          <section className='hidden xl:inline-flex'>
-            <MapWrapper searchResults={searchResults} />
-          </section>
-        </section>
+        <div className='hidden xl:inline-flex min-w-[600px] h-[80vh] overflow-hidden relative'>
+          <MapWrapper searchResults={searchResults} />
+        </div>
       </main>
 
       <Footer />
